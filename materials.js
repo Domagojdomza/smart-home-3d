@@ -1,0 +1,17 @@
+import * as T from 'three';
+
+// Deterministic, local PBR textures: no external asset requests.
+export function nordicMaterials(){
+ let seed=1729;const rnd=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);
+ function canvasTexture(draw,size=512,repeat=1){const c=document.createElement('canvas');c.width=c.height=size;draw(c.getContext('2d'),size);const t=new T.CanvasTexture(c);t.wrapS=t.wrapT=T.RepeatWrapping;t.repeat.set(repeat,repeat);t.anisotropy=4;return t;}
+ const grain=canvasTexture((c,n)=>{c.fillStyle='#c2b299';c.fillRect(0,0,n,n);for(let i=0;i<1700;i++){const y=rnd()*n,x=rnd()*n;c.strokeStyle=`rgba(${rnd()>.45?'62,45,28':'233,222,195'},${.025+rnd()*.10})`;c.lineWidth=.2+rnd();c.beginPath();c.moveTo(x,y);c.bezierCurveTo(x+30,y+Math.sin(y)*2,x+80,y-2,x+130+rnd()*150,y);c.stroke();}for(let k=0;k<5;k++){c.fillStyle='rgba(40,31,23,.10)';c.fillRect(0,k*n/5,n,1);const x=(k%2)*n/2;c.fillRect(x,k*n/5,1,n/5);}},512,2);
+ grain.colorSpace=T.SRGBColorSpace;
+ const noise=canvasTexture((c,n)=>{const image=c.createImageData(n,n);for(let i=0;i<image.data.length;i+=4){const a=125+rnd()*30;image.data[i]=image.data[i+1]=image.data[i+2]=a;image.data[i+3]=255;}c.putImageData(image,0,0);},256,6);
+ const weave=canvasTexture((c,n)=>{c.fillStyle='#999';c.fillRect(0,0,n,n);for(let i=0;i<n;i+=3){c.strokeStyle=i%2?'#8c8c8c':'#b5b5b5';c.lineWidth=1;c.beginPath();c.moveTo(i,0);c.lineTo(i,n);c.stroke();c.beginPath();c.moveTo(0,i);c.lineTo(n,i);c.stroke();}for(let i=0;i<5000;i++){c.fillStyle=rnd()>.5?'#aaa':'#888';c.fillRect(rnd()*n,rnd()*n,1,1);}},256,3);
+ const travertine=canvasTexture((c,n)=>{c.fillStyle='#c6c2b6';c.fillRect(0,0,n,n);for(let i=0;i<1100;i++){c.strokeStyle=`rgba(92,89,78,${rnd()*.035})`;c.beginPath();let y=rnd()*n;c.moveTo(0,y);for(let x=0;x<=n;x+=32)c.lineTo(x,y+Math.sin(x*.015+i)*2+rnd()*2);c.stroke();}for(let i=0;i<2600;i++){c.fillStyle='rgba(65,61,48,.05)';c.fillRect(rnd()*n,rnd()*n,rnd()*3,1);}},512,1);
+ travertine.colorSpace=T.SRGBColorSpace;
+ const lawn=canvasTexture((c,n)=>{c.fillStyle='#6f795c';c.fillRect(0,0,n,n);for(let i=0;i<50000;i++){c.strokeStyle=rnd()>.5?'#85906d':'#616e4f';c.globalAlpha=.1+rnd()*.25;const x=rnd()*n,y=rnd()*n;c.beginPath();c.moveTo(x,y);c.lineTo(x+1,y-2-rnd()*4);c.stroke();}},512,5);lawn.colorSpace=T.SRGBColorSpace;
+ const m=(color,opts={})=>new T.MeshStandardMaterial({color,roughness:.75,...opts});
+ return {m,plaster:m('#dcded8',{bumpMap:noise,bumpScale:.016}),cap:m('#e2e3de'),oak:m('#eee0cc',{map:grain,bumpMap:grain,bumpScale:.018,roughness:.48}),flooring:m('#e0d4c0',{map:grain,bumpMap:grain,bumpScale:.015,roughness:.56}),darkwood:m('#75614c',{map:grain,roughness:.55}),metal:m('#242d30',{metalness:.75,roughness:.32}),white:m('#e4e1d8',{roughness:.6}),stone:m('#ede8dc',{map:travertine,bumpMap:noise,bumpScale:.012,roughness:.45}),concrete:m('#acb0aa',{bumpMap:noise,bumpScale:.025,roughness:.9}),green:m('#4e6650',{roughness:.92}),soil:m('#555849',{bumpMap:noise,bumpScale:.04}),glass:new T.MeshPhysicalMaterial({color:'#adbfbc',metalness:.05,roughness:.075,transparent:true,opacity:.29,clearcoat:1,clearcoatRoughness:.08,envMapIntensity:1.1,side:T.DoubleSide,depthWrite:false}),fabric:m('#dcd3c2',{bumpMap:weave,bumpScale:.035,roughness:.96}),blue:m('#65746c',{bumpMap:weave,bumpScale:.03,roughness:.95}),terracotta:m('#88705a',{bumpMap:noise,bumpScale:.01}),black:m('#161f23',{roughness:.36}),lawn:m('#c2c8ad',{map:lawn,bumpMap:noise,bumpScale:.03}),weave,noise,grain};
+}
+

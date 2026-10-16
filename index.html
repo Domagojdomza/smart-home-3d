@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="hr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="index, follow, max-image-preview:large"><link rel="canonical" href="https://origincro.com/pametna-kuca/"><meta property="og:type" content="website"><meta property="og:locale" content="hr_HR"><meta property="og:title" content="Pametni dom u 3D · Origin"><meta property="og:description" content="Istražite kuću od 180 m², 25 pametnih uređaja i 5 scenarija. Isprobajte interaktivnu demonstraciju pametnog doma."><meta property="og:url" content="https://origincro.com/pametna-kuca/"><meta property="og:image" content="https://origincro.com/smart-home-preview.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#101e2b">
+  <title>Pametni dom, uživo u 3D · Origin</title>
+  <meta name="description" content="Istražite interaktivnu kuću od 180 m². Isprobajte rasvjetu, grijanje, sigurnost i automatizacije u Origin demonstraciji pametnog doma.">
+  <link rel="stylesheet" href="./house.css">
+  <link rel="stylesheet" href="./tablet.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+</head>
+<body>
+<a class="skip" href="#devices">Preskoči 3D prikaz i istraži uređaje</a>
+<header class="header">
+ <a class="brand" href="https://origincro.com/" aria-label="Origin početna"><span class="brand-mark"><i></i></span><span>origin<small>CONNECTED LIVING</small></span></a>
+ <nav><a href="https://origincro.com/">← Origin IT usluge</a><a href="https://origincro.com/?kategorija=smart#cjenik">Usluge i cijene</a><a class="contact" href="https://origincro.com/#kontakt">Razgovarajmo o vašem domu <span>↗</span></a></nav>
+</header>
+<main>
+ <section class="intro"><div><p class="eyebrow"><span></span> INTERAKTIVNI SHOWROOM</p><h1>Dom koji radi <em>za vas.</em></h1><p class="lead">Zavirite unutra. Dodirnite uređaj. Isprobajte kako sve radi zajedno.</p></div><div class="house-spec"><b>180 <small>m²</small></b><span>Jedna etaža. Povezan dom.</span><span class="spec-note">Skandinavski koncept · simulacija</span></div></section>
+ <div class="experience-switch"><div class="experience-tabs" role="tablist" aria-label="Prikaz pametnog doma"><button id="house-view-tab" role="tab" aria-selected="true" aria-controls="house-panel" tabindex="0">3D kuća</button><button id="tablet-view-tab" role="tab" aria-selected="false" aria-controls="tablet-panel" tabindex="-1">Tablet / mobitel</button></div><p>Isti dom. Dva načina upravljanja.</p></div>
+ <section class="showroom" id="house-panel" role="tabpanel" aria-labelledby="house-view-tab">
+  <div class="workspace">
+   <div class="viewer-head"><div><span class="live-dot"></span><b id="mode-title">Dobro došli kući</b><small id="mode-sub">Sve je na svom mjestu.</small></div><span class="demo-label">DEMO</span></div>
+   <div class="categories" role="group" aria-label="Prikaži sustav" id="categories"></div>
+   <div class="stage" id="stage"><div id="canvas-wrap"></div><div id="hotspots"></div><div class="loading" id="loading"><span class="loader"></span>Pripremamo vaš pametni dom…</div><div class="compass" aria-hidden="true"><span>N</span><i>↑</i></div><div class="stage-caption"><b>NORDIC / 180</b><span>HRAST · STAKLO · ANTRACIT</span></div></div>
+   <div class="view-toolbar"><div class="view-buttons"><button id="view3d" class="active" title="Vrati početni 3D pogled" aria-pressed="true">3D pogled</button><button id="plan" aria-pressed="false">Tlocrt</button><button id="section" aria-pressed="false" title="Privremeno skrati zidove radi pregleda interijera">Presjek</button><button id="roof" aria-pressed="false">Krov</button></div><div class="view-buttons"><button id="night" aria-pressed="false" title="Promijeni osvjetljenje scene">☾ Noć</button><button id="labels" aria-pressed="false">Sve oznake</button><button id="reset" title="Vrati sve postavke">↺ Reset</button></div></div>
+   <p class="section-note" id="section-status" role="status">Puni zidovi · visina 2,65 m</p><p class="gesture"><span>↔ Povucite za okretanje</span><span>⌕ Kotačić / dva prsta za približavanje</span><span>＋ Kliknite oznaku uređaja</span></p>
+  </div>
+  <aside class="inspector" id="devices" tabindex="-1"><div class="inspector-tabs"><button class="active" id="detail-tab" aria-pressed="true">Istraži</button><button id="list-tab" aria-pressed="false">Svi uređaji <span id="device-count"></span></button></div><div id="detail"></div><div id="device-list" hidden></div><div class="tour-box"><div><span>NE ZNATE ODAKLE POČETI?</span><b>Prošećimo pametnim domom.</b></div><button id="tour">Pokreni obilazak <span>→</span></button></div></aside>
+ </section>
+ <section id="tablet-panel" role="tabpanel" aria-labelledby="tablet-view-tab" hidden></section>
+ <section class="scenes" id="house-scenes" aria-label="Scenariji pametne kuće"><div class="scenes-label"><span>JEDAN DODIR.</span><h2>Cijeli dom reagira.</h2></div><div class="scene-buttons" id="scenes"></div></section>
+ <section class="activity"><div><span class="activity-icon">↳</span><p id="event" role="status" aria-live="polite">Odaberite uređaj ili pokrenite scenarij i pratite promjene na kući.</p></div><span id="scene-status">SIMULACIJA SUSTAVA</span></section>
+ <section class="understand"><div><p class="eyebrow">MANJE PREKIDA. VIŠE ŽIVOTA.</p><h2>Nisu pametni samo uređaji.<br><em>Pametna je njihova suradnja.</em></h2></div><div class="understand-copy"><p>Senzor prepozna dolazak. Rasvjeta osvijetli put. Temperatura je ugodna, a sjenila na pravom mjestu. Ovdje možete isprobati ideju doma koji se prilagođava vašem danu.</p><p class="disclaimer">Ovo je ilustrativna simulacija, bez veze sa stvarnim uređajima. Prikazane vrijednosti nisu mjerenja ni procjena uštede. Izbor opreme, kompatibilnost i automatizacije dogovaraju se za svaki projekt.</p><a href="https://origincro.com/#kontakt">Osmislimo vaš pametni dom <span>↗</span></a></div></section>
+</main>
+<footer><a class="footer-brand" href="https://origincro.com/">origin<span>IT usluge · Orahovica</span></a><span>3D koncept · 180 m² bruto · nije izvedbeni nacrt</span><a href="./vendor/THREE-LICENSE.txt">Three.js · MIT</a></footer>
+<noscript><p class="no-js">Za 3D demo uključite JavaScript. Sustav prikazuje rasvjetu, sjenila, klimu, sigurnost, zaštitu od vode i dima, energiju i navodnjavanje. <a href="https://origincro.com/#kontakt">Javite nam se za svoj projekt.</a></p></noscript>
+<script type="module" src="./app.js"></script>
+</body></html>
+
+

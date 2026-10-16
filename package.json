@@ -1,0 +1,8 @@
+{
+  "name": "smart-home-3d",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check app.js && node --check state.js && node --check model.js && node --check nordic.js && node --check tablet.js"
+  }
+}
